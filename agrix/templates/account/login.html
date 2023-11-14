@@ -1,0 +1,104 @@
+{% extends "includes/base.html" %}
+{% load static %}
+{% load i18n %}
+{% load socialaccount %}
+{% block content %}
+    <!--End header-->
+    <main class="main pages">
+        <div class="page-content pt-150 pb-150">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-10 col-md-12 m-auto">
+                        <div class="row">
+                            <div class="col-lg-6 pr-30 d-none d-lg-block">
+                                <img class="border-radius-15" src="{% static 'front-assets/imgs/page/login-1.png' %}" alt="" />
+                            </div>
+                            <div class="col-lg-6 col-md-8">
+                                <div class="login_wrap widget-taber-content background-white">
+                                    <div class="padding_eight_all bg-white">
+                                        <div class="heading_s1">
+                                            <h1 class="mb-5">Login</h1>
+                                            <p class="mb-30">Don't have an account? <a href="{% url 'account_signup' %}">Create here</a></p>
+                                        </div>
+                                          <!-- Load message -->
+                                        <form id="login_form" class="login" method="post" action="{% url 'account_login' %}">
+                                            {% csrf_token %}
+                                            {% for field in form.visible_fields|slice:'2' %}
+                                            {% if field.name == 'login' %}
+                                            <div class="form-group">
+                                                <input type="text" required="" name="login" placeholder="Username or email *" />
+                                            </div>
+                                                {% if form.username_email.errors %}
+                                                    <div class="alert alert-danger" role="alert">                                            
+                                                {% else %}
+                                                    <div class="form-group">
+                                                        <input required="" type="password" name="password" placeholder="Your password *" />
+                                                    </div>
+                                                {% endif %}
+
+                                            {% else %}
+                                            {% endif %}
+                                            {% endfor %}
+                                            </div>
+                                            {% if form.errors %}
+                                                <div class="alert alert-danger style="border: none;"" role="alert">
+                                                    {% for field in form.visible_fields %}
+                                                        {% for error in field.errors %}
+                                                            <strong>{{ error }}</strong>
+                                                        {% endfor %}
+                                                    {% endfor %}
+                                                    {% for error in form.non_field_errors %}
+                                                        <div class="alert alert-danger"style="border: none;">
+                                                            <strong>{{ error|escape }}</strong>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                            <div class="login_footer form-group mb-50">
+                                                <div class="chek-form">
+                                                    <div class="custome-checkbox">
+                                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="" />
+                                                        <label class="form-check-label" for="exampleCheckbox1"><span>Remember me</span></label>
+                                                    </div>
+                                                </div>
+                                                <a class="text-muted" href="{% url 'account_reset_password' %}">Forgot password ?</a>
+                                            </div>
+                                            {% if redirect_field_value %}
+                                                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                                            {% endif %}
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-heading btn-block hover-up" value="login">Log in</button>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <h5 style="text-align:center;">Or Continue with</h5>
+                                            <hr>
+                                                <div class="card-login mt-10 w-60">
+                                                    <a href="{% provider_login_url 'facebook' %}" class="social-login facebook-login">
+                                                        <img src="{% static 'front-assets/imgs/theme/icons/logo-facebook.svg' %}" alt="" />
+                                                        <span>Facebook</span>
+                                                    </a>
+                                                    <a href="{% provider_login_url 'google' %}" class="social-login google-login">
+                                                        <img src="{% static 'front-assets/imgs/theme/icons/logo-google.svg' %}" alt="" />
+                                                        <span>Google</span>
+                                                    </a>
+                                                    <a href="{% provider_login_url 'github' %}" class="social-login apple-login">
+                                                        <img src="{% static 'front-assets/imgs/theme/icons/logo-github.png' %}" alt="" />
+                                                        <span>Github</span>
+                                                    </a>
+                                                </div>
+                                            <hr>                                            
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}   
