@@ -3,7 +3,10 @@
         "allauth",
         "endfor",
         "jazzmin",
+        "shortuuid",
         "signup",
-        "socialaccount"
+        "socialaccount",
+        "taggit",
+        "vsearch"
     ]
 }
