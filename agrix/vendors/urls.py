@@ -4,4 +4,5 @@ app_name = 'vendors'
 
 urlpatterns = [
     path('', views.vendors, name='vendors'),
+    path('<vid>/', views.vendor_detail, name='vendor-detail'),
 ]

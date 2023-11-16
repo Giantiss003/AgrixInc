@@ -57,6 +57,10 @@ class Product(models.Model):
     featured = models.BooleanField(default=False)
     
     digital = models.BooleanField(default=False, null=True, blank=True)
+    type = models.CharField(max_length=100, null=True, blank=True, default='Organic')
+    life = models.CharField(max_length=100, null=True, blank=True, default='7 Days')
+    mfg = models.DateField(auto_now_add=False, null=True, blank=True)
+    stock_count = models.IntegerField(default=10)
     
     sku = ShortUUIDField(unique=True, length=10, max_length=30, prefix='sku_', alphabet='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
     date = models.DateTimeField(auto_now_add=True)
@@ -76,7 +80,7 @@ class Product(models.Model):
 
 class ProductImages(models.Model):
     images = models.ImageField(upload_to='product-images', default='product.jpg')    
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, related_name='p_images')
     date = models.DateTimeField(auto_now_add=True)
     
     class Meta:

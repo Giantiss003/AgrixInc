@@ -139,19 +139,19 @@
                                         </div>
                                         <div class="custome-checkbox">
                                             <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox211" value="" />
-                                            <label class="form-check-label" for="exampleCheckbox211"><span>$0.00 - $20.00 </span></label>
+                                            <label class="form-check-label" for="exampleCheckbox211"><span>Kes0.00 - Kes20.00 </span></label>
                                             <br />
                                             <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox22" value="" />
-                                            <label class="form-check-label" for="exampleCheckbox22"><span>$20.00 - $40.00 </span></label>
+                                            <label class="form-check-label" for="exampleCheckbox22"><span>Kes20.00 - Kes40.00 </span></label>
                                             <br />
                                             <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox23" value="" />
-                                            <label class="form-check-label" for="exampleCheckbox23"><span>$40.00 - $60.00 </span></label>
+                                            <label class="form-check-label" for="exampleCheckbox23"><span>Kes40.00 - Kes60.00 </span></label>
                                             <br />
                                             <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox24" value="" />
-                                            <label class="form-check-label" for="exampleCheckbox24"><span>$60.00 - $80.00 </span></label>
+                                            <label class="form-check-label" for="exampleCheckbox24"><span>Kes60.00 - Kes80.00 </span></label>
                                             <br />
                                             <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox25" value="" />
-                                            <label class="form-check-label" for="exampleCheckbox25"><span>Over $100.00</span></label>
+                                            <label class="form-check-label" for="exampleCheckbox25"><span>Over Kes100.00</span></label>
                                         </div>
                                     </div>
                                 </div>
@@ -211,7 +211,7 @@
                             <div class="product-cart-wrap mb-30">
                                 <div class="product-img-action-wrap">
                                     <div class="product-img product-img-zoom">
-                                        <a href="shop-product-right.html">
+                                        <a href="{% url 'marketplace:product-detail' p.pid %}">
                                             <img class="default-img" src="{{ p.image.url }}" alt="" />
                                             <img class="hover-img" src="{{ p.image.url }}" alt="" />
                                         </a>
@@ -228,7 +228,7 @@
                                     <div class="product-category">
                                         <a href="shop-grid-right.html">{{ p.category.title }}</a>
                                     </div>
-                                    <h2><a href="shop-product-right.html">{{ p.title }}</a></h2>
+                                    <h2><a href="{% url 'marketplace:product-detail' p.pid %}">{{ p.title }}</a></h2>
                                     <div class="product-rate-cover">
                                         <div class="product-rate d-inline-block">
                                             <div class="product-rating" style="width: 90%"></div>
@@ -240,8 +240,8 @@
                                     </div>
                                     <div class="product-card-bottom">
                                         <div class="product-price">
-                                            <span>$ {{ p.price }}</span>
-                                            <span class="old-price">$ {{ p.old_price }}</span>
+                                            <span>Kes {{ p.price }}</span>
+                                            <span class="old-price">Kes {{ p.old_price }}</span>
                                         </div>
                                         <div class="add-cart">
                                             <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
@@ -306,8 +306,8 @@
                                             </div>
                                             <div class="product-card-bottom">
                                                 <div class="product-price">
-                                                    <span>$32.85</span>
-                                                    <span class="old-price">$33.8</span>
+                                                    <span>Kes32.85</span>
+                                                    <span class="old-price">Kes33.8</span>
                                                 </div>
                                                 <div class="add-cart">
                                                     <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
@@ -343,8 +343,8 @@
                                             </div>
                                             <div class="product-card-bottom">
                                                 <div class="product-price">
-                                                    <span>$24.85</span>
-                                                    <span class="old-price">$26.8</span>
+                                                    <span>Kes24.85</span>
+                                                    <span class="old-price">Kes26.8</span>
                                                 </div>
                                                 <div class="add-cart">
                                                     <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
@@ -380,8 +380,8 @@
                                             </div>
                                             <div class="product-card-bottom">
                                                 <div class="product-price">
-                                                    <span>$12.85</span>
-                                                    <span class="old-price">$13.8</span>
+                                                    <span>Kes12.85</span>
+                                                    <span class="old-price">Kes13.8</span>
                                                 </div>
                                                 <div class="add-cart">
                                                     <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
@@ -417,8 +417,8 @@
                                             </div>
                                             <div class="product-card-bottom">
                                                 <div class="product-price">
-                                                    <span>$15.85</span>
-                                                    <span class="old-price">$16.8</span>
+                                                    <span>Kes15.85</span>
+                                                    <span class="old-price">Kes16.8</span>
                                                 </div>
                                                 <div class="add-cart">
                                                     <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>

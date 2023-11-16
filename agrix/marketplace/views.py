@@ -17,6 +17,17 @@ def product_list(request):
     }
     return render(request, 'marketplace/product-list.html', context)
 
+def product_detail(request, pid):
+    product = Product.objects.get(pid=pid)
+    p_images = product.p_images.all()
+    context = {
+        'product': product,
+        'p_images': p_images,
+    }
+    return render(request, 'marketplace/product-detail.html', context)
+
+
+
 
 def category_product_list(request, cid):
     category = Category.objects.get(cid=cid)
