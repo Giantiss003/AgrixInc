@@ -1,14 +1,37 @@
 from django.contrib import admin
 from .models import Category, Product, ProductImages, CartOrder, CartOrderItems, Wishlist, Address
+from .forms import ProductAdminForm, ProductImagesAdminForm
 
 class ProductImagesAdmin(admin.TabularInline):
+    def get_form(self, request, obj=None, **kwargs):
+        if obj is None:  # If it's a new object (adding), set the vendor based on the logged-in user's vendor
+            defaults = {
+                'form': ProductImagesAdminForm,
+            }
+            kwargs.update(defaults)
+        return super().get_form(request, obj, **kwargs)
+    
     model = ProductImages
 
 
 class ProductAdmin(admin.ModelAdmin):
+    def get_form(self, request, obj=None, **kwargs):
+        if obj is None:  # If it's a new object (adding), set the vendor based on the logged-in user's vendor
+            defaults = {
+                'form': ProductAdminForm,
+            }
+            kwargs.update(defaults)
+        return super().get_form(request, obj, **kwargs)
+
+    def vendor_callback(self, db_field, **kwargs):
+        if db_field.name == 'vendor':
+            kwargs['initial'] = self.request.user.customuser.vendor
+            kwargs['widget'].attrs['readonly'] = True  # Make the field read-only
+        return db_field.formfield(**kwargs)
+    
     inlines = [ProductImagesAdmin]
-    list_display = ('user','title', 'product_image', 'category','vendor', 'price', 'featured', 'product_status', 'date')
-    list_filter = ['category', 'date', 'featured', 'product_status', 'user']
+    list_display = ('title', 'product_image', 'category','vendor', 'price', 'featured', 'product_status', 'date')
+    list_filter = ['category', 'date', 'featured', 'product_status']
     search_fields = ['title', 'category']
     list_editable = ['featured', 'product_status']
     list_per_page = 10

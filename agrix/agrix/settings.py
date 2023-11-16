@@ -34,6 +34,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'jazzmin',
+    'taggit',
+    'ckeditor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -203,6 +205,26 @@ ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECTED_URL = None
 ACCOUNT_PASSWORD_INPUT_RENDER_VALUE = False
 
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'skin': 'office2013',
+        'toolbar': 'full',
+        'height': 300,
+        'width': 700,
+        'extraPlugins': ','.join(
+            [
+                'widget',
+                'dialog',                
+            ]
+        ),
+    },
+    
+    
+
+}
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)

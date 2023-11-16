@@ -29,14 +29,9 @@
                     </div>
                     <div class="header-right">
                         <div class="search-style-2">
-                            <form action="#">
-                                <select class="select-active">
-                                    <option>All Categories</option>
-                                    {% for category in categories %}
-                                    <a href="{% url 'marketplace:category-product-list' category.cid %}"><option>{{category.title}}</option></a>
-                                    {% endfor %}
-                                </select>
-                                <input type="text" placeholder="Search for items..." />
+                            <form action="{% url 'marketplace:search' %}" method="GET">
+                                <input type="text" placeholder="Search for items…" name="q" />
+                                <button type="submit"><i class="fi-rs-search"></i></button>
                             </form>
                         </div>
                     </div>
@@ -85,7 +80,7 @@
             <div class="container">
                 <div class="header-wrap header-space-between position-relative">
                     <div class="logo logo-width-1 d-block d-lg-none">
-                        <a href="index.html"><img src="{% static 'front-assets/imgs/theme/logo.svg' %}" alt="logo" /></a>
+                        <a href="#"><img src="{% static 'front-assets/imgs/theme/logo.svg' %}" alt="logo" /></a>
                     </div>
                     <div class="header-nav d-none d-lg-flex">
                         <div class="main-categori-wrap d-none d-lg-block">
@@ -109,22 +104,22 @@
                             <nav>
                                 <ul>
                                     <li>
-                                        <a class="active" href="index.html">Home <i class="fi-rs-angle-down"></i></a>
+                                        <a class="active" href="{% url "home:home" %}">Home </a>
                                     </li>
                                     <li>
-                                        <a href="page-about.html">About</a>
+                                        <a href="#">About</a>
                                     </li>
                                     <li>
-                                        <a href="shop-grid-right.html">Shop <i class="fi-rs-angle-down"></i></a>
+                                        <a href="{% url 'marketplace:marketplace' %}">Shop </a>
                                     </li>
                                     <li>
-                                        <a href="#">Vendors <i class="fi-rs-angle-down"></i></a>
+                                        <a href="{% url 'vendors:vendors' %}">Vendors </a>
                                     </li>
                                     <li>
-                                        <a href="blog-category-grid.html">Blog <i class="fi-rs-angle-down"></i></a>
+                                        <a href="#">Blog </a>
                                     </li>
                                     <li>
-                                        <a href="page-contact.html">Contact</a>
+                                        <a href="#">Contact</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -154,31 +149,31 @@
                                     </form>
                                 </div> {% endcomment %}
                                 <div class="header-action-icon-2">
-                                    <a href="shop-wishlist.html">
+                                    <a href="#">
                                         <img class="svgInject" alt="Nest" src="{% static 'front-assets/imgs/theme/icons/icon-heart.svg' %}" />
                                         <span class="pro-count blue">6</span>
                                     </a>
-                                    <a href="shop-wishlist.html"><span class="lable">Wishlist</span></a>
+                                    <a href="#"><span class="lable">Wishlist</span></a>
                                 </div>
                                 <div class="header-action-icon-2">
-                                    <a class="mini-cart-icon" href="shop-cart.html">
+                                    <a class="mini-cart-icon" href="#">
                                         <img alt="Nest" src="{% static 'front-assets/imgs/theme/icons/icon-cart.svg' %}" />
                                         <span class="pro-count blue">2</span>
                                     </a>
-                                    <a href="shop-cart.html"><span class="lable">Cart</span></a>
+                                    <a href="#"><span class="lable">Cart</span></a>
                                 </div>
                                 <div class="header-action-icon-2">
-                                    <a href="page-account.html">
+                                    <a href="#">
                                         <img class="svgInject" alt="Nest" src="{% static 'front-assets/imgs/theme/icons/icon-user.svg' %}" />
                                     </a>
-                                    <a href="page-account.html"><span class="lable ml-0">Account</span></a>
+                                    <a href="#"><span class="lable ml-0">Account</span></a>
                                     <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                         <ul>
-                                            <li><a href="page-account.html"><i class="fi fi-rs-user mr-10"></i>My Account</a></li>
-                                            <li><a href="page-account.html"><i class="fi fi-rs-location-alt mr-10"></i>Order Tracking</a></li>
-                                            <li><a href="page-account.html"><i class="fi fi-rs-label mr-10"></i>My Voucher</a></li>
-                                            <li><a href="shop-wishlist.html"><i class="fi fi-rs-heart mr-10"></i>My Wishlist</a></li>
-                                            <li><a href="page-account.html"><i class="fi fi-rs-settings-sliders mr-10"></i>Settings</a></li>
+                                            <li><a href="#"><i class="fi fi-rs-user mr-10"></i>My Account</a></li>
+                                            <li><a href="#"><i class="fi fi-rs-location-alt mr-10"></i>Order Tracking</a></li>
+                                            <li><a href="#"><i class="fi fi-rs-label mr-10"></i>My Voucher</a></li>
+                                            <li><a href="#"><i class="fi fi-rs-heart mr-10"></i>My Wishlist</a></li>
+                                            <li><a href="#"><i class="fi fi-rs-settings-sliders mr-10"></i>Settings</a></li>
                                             {% if request.user.is_authenticated %}
                                             <li><a href="{% url 'account_logout' %}"><i class="fi fi-rs-sign-out mr-10"></i>Sign out</a></li>
                                             {% else %}
@@ -200,13 +195,13 @@
                     <div class="header-action-right d-block d-lg-none">
                         <div class="header-action-2">
                             <div class="header-action-icon-2">
-                                <a href="shop-wishlist.html">
+                                <a href="#">
                                     <img alt="Nest" src="{% static 'front-assets/imgs/theme/icons/icon-heart.svg' %}" />
                                     <span class="pro-count white">4</span>
                                 </a>
                             </div>
                             <div class="header-action-icon-2">
-                                <a class="mini-cart-icon" href="shop-cart.html">
+                                <a class="mini-cart-icon" href="#">
                                     <img alt="Nest" src="{% static 'front-assets/imgs/theme/icons/icon-cart.svg' %}" />
                                     <span class="pro-count white">2</span>
                                 </a>
@@ -221,7 +216,7 @@
         <div class="mobile-header-wrapper-inner">
             <div class="mobile-header-top">
                 <div class="mobile-header-logo">
-                    <a href="index.html"><img src="{% static 'front-assets/imgs/theme/logo.svg' %}" alt="logo" /></a>
+                    <a href="#"><img src="{% static 'front-assets/imgs/theme/logo.svg' %}" alt="logo" /></a>
                 </div>
                 <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                     <button class="close-style search-close">
@@ -232,8 +227,8 @@
             </div>
             <div class="mobile-header-content-area">
                 <div class="mobile-search search-style-3 mobile-header-border">
-                    <form action="#">
-                        <input type="text" placeholder="Search for items…" />
+                    <form action="{% url 'marketplace:search' %}" method="GET">
+                        <input type="text" placeholder="Search for items…" name="q"/>
                         <button type="submit"><i class="fi-rs-search"></i></button>
                     </form>
                 </div>
@@ -242,16 +237,16 @@
                     <nav>
                         <ul class="mobile-menu font-heading">
                             <li class="menu-item-has-children">
-                                <a href="index.html">Home</a>
+                                <a href="{% url "home:home" %}">Home</a>
                             </li>
                             <li class="menu-item-has-children">
-                                <a href="shop-grid-right.html">shop</a>
+                                <a href="{% url "marketplace:marketplace" %}">shop</a>
                             </li>
                             <li class="menu-item-has-children">
-                                <a href="#">Vendors</a>
+                                <a href="{% url "vendors:vendors" %}">Vendors</a>
                             </li>
                             <li class="menu-item-has-children">
-                                <a href="blog-category-fullwidth.html">Blog</a>
+                                <a href="#">Blog</a>
                             </li>
                             {% comment %} <li class="menu-item-has-children">
                                 <a href="#">Language</a>
@@ -413,7 +408,7 @@
                     <div class="col">
                         <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0">
                             <div class="logo mb-30">
-                                <a href="index.html" class="mb-15"><img src="{% static 'front-assets/imgs/theme/logo.svg' %}" alt="logo" /></a>
+                                <a href="#" class="mb-15"><img src="{% static 'front-assets/imgs/theme/logo.svg' %}" alt="logo" /></a>
                                 <p class="font-lg text-heading">Awesome grocery store website template</p>
                             </div>
                             <ul class="contact-infor">

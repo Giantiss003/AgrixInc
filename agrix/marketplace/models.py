@@ -3,6 +3,8 @@ from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
 from auths.models import CustomUser
 from vendors.models import Vendor
+from taggit.managers import TaggableManager
+from ckeditor_uploader.fields import RichTextUploadingField
 
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
@@ -43,15 +45,14 @@ class Product(models.Model):
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to='product', default='product.jpg')
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE, null=True, related_name='product')
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, related_name='category')
-    description = models.TextField(null=True, blank=True)
+    description = RichTextUploadingField(null=True, blank=True)
     
     price = models.DecimalField(max_digits=10, decimal_places=2, default=10.00)
     old_price = models.DecimalField(max_digits=10, decimal_places=2, default=5.00)
-    specifications = models.TextField(null=True, blank=True)
+    specifications = RichTextUploadingField(null=True, blank=True)
     product_status = models.CharField(max_length=100, choices=STATUS, default='in_review')
-    
+    tags = TaggableManager(blank=True)
     status = models.BooleanField(default=True)
     stock = models.BooleanField(default=True)
     featured = models.BooleanField(default=False)

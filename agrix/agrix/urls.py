@@ -25,6 +25,8 @@ urlpatterns = [
     path('accounts/', include("auths.urls")),
     path('marketplace/', include("marketplace.urls")),
     path('vendors/', include("vendors.urls")),
+    
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
 if settings.DEBUG:

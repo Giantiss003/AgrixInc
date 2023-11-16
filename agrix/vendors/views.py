@@ -19,3 +19,14 @@ def vendor_detail(request, vid):
         'products': products,
     }
     return render(request, 'vendors/vendor-detail.html', context)
+
+def search(request):
+    query = request.GET.get("q")
+    
+    vendors = Vendor.objects.filter(title__icontains=query).order_by("-id")
+
+    context = {
+        'vendors': vendors,
+        'query': query,
+    }
+    return render(request, 'vendors/search.html', context)

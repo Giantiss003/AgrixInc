@@ -2,6 +2,8 @@ from django.db import models
 from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
 from auths.models import CustomUser
+from ckeditor_uploader.fields import RichTextUploadingField
+
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'vendor/{0}/{1}'.format(instance.user.id, filename)
@@ -10,7 +12,7 @@ class Vendor (models.Model):
     vid = ShortUUIDField(unique=True, length=10, max_length=30, prefix='ven_', alphabet='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to=user_directory_path, default='vendor.jpg')
-    description = models.TextField(null=True, blank=True, default='Hi am using Agrix')
+    description = RichTextUploadingField(null=True, blank=True, default='Hi am using Agrix')
     
     address = models.CharField(max_length=100, default='address')
     contact = models.CharField(max_length=100, default='contact')
