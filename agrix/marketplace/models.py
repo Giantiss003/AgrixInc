@@ -1,7 +1,7 @@
 from django.db import models
 from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
-from django.contrib.auth.models import User
+from auths.models import CustomUser
 from vendors.models import Vendor
 
 def user_directory_path(instance, filename):
@@ -43,7 +43,7 @@ class Product(models.Model):
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to='product', default='product.jpg')
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE, null=True, related_name='product')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, related_name='category')
     description = models.TextField(null=True, blank=True)
     
@@ -89,7 +89,7 @@ class ProductImages(models.Model):
 
 
 class CartOrder(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     price = models.DecimalField(max_digits=100, decimal_places=2, default=10.00)
     paid_status = models.BooleanField(default=False)
     order_date = models.DateTimeField(auto_now_add=True)
@@ -118,7 +118,7 @@ class CartOrderItems(models.Model):
     
     
 class Wishlist(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     date = models.DateTimeField(auto_now_add=True)
     
@@ -130,7 +130,7 @@ class Wishlist(models.Model):
     
     
 class Address(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     address = models.CharField(max_length=200, null=True)
     status = models.BooleanField(default=False)    
            

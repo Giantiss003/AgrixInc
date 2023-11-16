@@ -270,10 +270,20 @@
       $('.alert').alert("close");
     }, 3000)
 </script>
-    {% block content %}
-    <!--End header-->
-    <!--End page content-->
-    {% endblock %}
+<main class="main pages">
+    <div class="page-content pt-150 pb-150 style="text-align:center;"" >
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8 col-lg-10 col-md-12 m-auto">
+                {% block content %}
+                <!--End header-->
+                <!--End page content-->
+                {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 
     <footer class="main">
         <section class="newsletter mb-15">

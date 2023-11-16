@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'auths.apps.AuthsConfig',
     'home.apps.HomeConfig',
     'marketplace.apps.MarketplaceConfig',
     'vendors.apps.VendorsConfig',
@@ -65,6 +66,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'agrix.urls'
+
+AUTH_USER_MODEL = 'auths.CustomUser'
 
 TEMPLATES = [
     {
@@ -179,6 +182,9 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_CONFIRM_EMAIL_ON_GET = False
 
+ACCOUNT_FORMS = {
+'signup': 'auths.forms.CustomSignupForm',
+}
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 3
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 3600
 ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'

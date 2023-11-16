@@ -37,6 +37,15 @@
                                             <div class="form-group">
                                                 <input id="password2" required="" type="password" name="password2" placeholder="Confirm password" />
                                             </div>
+                                            <div class="login_footer form-group mb-50">
+                                                <div class="chek-form">
+                                                    <div class="custome-checkbox">
+                                                        <input class="form-check-input" type="checkbox" name="is_vendor" id="id_is_vendor"/>
+                                                        <label class="form-check-label" for="id_is_vendor"><span>Open a Vendor Account?</span></label>
+                                                    </div>
+                                                </div>
+                                                <a href="#"><i class="fi-rs-book-alt mr-5 text-muted"></i>Lean more</a>
+                                            </div>
                                             {% if form.errors %}
                                                 <div class="alert alert-danger style="border: none;"" role="alert">
                                                     {% for field in form.visible_fields %}
