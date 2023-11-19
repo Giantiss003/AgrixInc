@@ -4,7 +4,7 @@ from marketplace.models import Product
 
 # Create your views here.
 def home(request):
-    products = Product.objects.filter(featured=True,product_status="published").order_by('-id')
+    products = Product.objects.filter(featured=True,product_status="published").order_by('-id')[:10]
     
     context = {
         'products': products

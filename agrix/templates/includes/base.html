@@ -17,6 +17,10 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="{% static 'front-assets/css/plugins/slider-range.css' %}" />
     <link rel="stylesheet" href="{% static 'front-assets/css/main.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -25,7 +29,7 @@
             <div class="container">
                 <div class="header-wrap">
                     <div class="logo logo-width-1">
-                        <a href=""><img src="{% static 'front-assets/imgs/theme/logo.svg' %}" alt="logo" /></a>
+                        <a href="{% url 'marketplace:marketplace' %}"><img src="{% static 'front-assets/imgs/theme/logo.svg' %}" alt="logo" /></a>
                     </div>
                     <div class="header-right">
                         <div class="search-style-2">
@@ -80,7 +84,7 @@
             <div class="container">
                 <div class="header-wrap header-space-between position-relative">
                     <div class="logo logo-width-1 d-block d-lg-none">
-                        <a href="#"><img src="{% static 'front-assets/imgs/theme/logo.svg' %}" alt="logo" /></a>
+                        <a href="{% url 'marketplace:marketplace' %}"><img src="{% static 'front-assets/imgs/theme/logo.svg' %}" alt="logo" /></a>
                     </div>
                     <div class="header-nav d-none d-lg-flex">
                         <div class="main-categori-wrap d-none d-lg-block">
@@ -93,7 +97,7 @@
                                     <ul>
                                         {% for category in categories %}
                                         <li>
-                                            <a href="{% url 'marketplace:category-product-list' category.cid %}"> <img src="{% static '{{category.image.url}}' %}" alt="" />{{category.title}}</a>
+                                            <a href="{% url 'marketplace:category-product-list' category.cid %}"> <img src="{{category.image.url}}" alt="" />{{category.title}}</a>
                                         </li>
                                         {% endfor %}
                                     </ul>
@@ -150,21 +154,21 @@
                                 </div> {% endcomment %}
                                 <div class="header-action-icon-2">
                                     <a href="#">
-                                        <img class="svgInject" alt="Nest" src="{% static 'front-assets/imgs/theme/icons/icon-heart.svg' %}" />
+                                        <img class="svgInject" alt="Agrix" src="{% static 'front-assets/imgs/theme/icons/icon-heart.svg' %}" />
                                         <span class="pro-count blue">6</span>
                                     </a>
                                     <a href="#"><span class="lable">Wishlist</span></a>
                                 </div>
                                 <div class="header-action-icon-2">
                                     <a class="mini-cart-icon" href="#">
-                                        <img alt="Nest" src="{% static 'front-assets/imgs/theme/icons/icon-cart.svg' %}" />
-                                        <span class="pro-count blue">2</span>
+                                        <img alt="Agrix" src="{% static 'front-assets/imgs/theme/icons/icon-cart.svg' %}" />
+                                        <span class="pro-count blue cart-items-count">{{request.session.cart_data_obj|length}}</span>
                                     </a>
                                     <a href="#"><span class="lable">Cart</span></a>
                                 </div>
                                 <div class="header-action-icon-2">
                                     <a href="#">
-                                        <img class="svgInject" alt="Nest" src="{% static 'front-assets/imgs/theme/icons/icon-user.svg' %}" />
+                                        <img class="svgInject" alt="Agrix" src="{% static 'front-assets/imgs/theme/icons/icon-user.svg' %}" />
                                     </a>
                                     <a href="#"><span class="lable ml-0">Account</span></a>
                                     <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
@@ -196,14 +200,14 @@
                         <div class="header-action-2">
                             <div class="header-action-icon-2">
                                 <a href="#">
-                                    <img alt="Nest" src="{% static 'front-assets/imgs/theme/icons/icon-heart.svg' %}" />
+                                    <img alt="Agrix" src="{% static 'front-assets/imgs/theme/icons/icon-heart.svg' %}" />
                                     <span class="pro-count white">4</span>
                                 </a>
                             </div>
                             <div class="header-action-icon-2">
                                 <a class="mini-cart-icon" href="#">
-                                    <img alt="Nest" src="{% static 'front-assets/imgs/theme/icons/icon-cart.svg' %}" />
-                                    <span class="pro-count white">2</span>
+                                    <img alt="Agrix" src="{% static 'front-assets/imgs/theme/icons/icon-cart.svg' %}" />
+                                    <span class="pro-count white cart-items-count">{{request.session.cart_data_obj|length}}</span>
                                 </a>
                             </div>
                         </div>
@@ -318,7 +322,7 @@
                                     Stay home & get your daily <br />
                                     needs from our shop
                                 </h2>
-                                <p class="mb-45">Start You'r Daily Shopping with <span class="text-brand">Nest Mart</span></p>
+                                <p class="mb-45">Start You'r Daily Shopping with <span class="text-brand">Agrix Mart</span></p>
                                 <form class="form-subcriber d-flex">
                                     <input type="email" placeholder="Your emaill address" />
                                     <button class="btn" type="submit">Subscribe</button>
@@ -527,6 +531,7 @@
     <!-- Template  JS -->
     <script src="{% static 'front-assets/js/main.js' %}"></script>
     <script src="{% static 'front-assets/js/shop.js' %}"></script>
+    <script src="{% static 'front-assets/js/function.js' %}"></script>
 </body>
 
 </html>

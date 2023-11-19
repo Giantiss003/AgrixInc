@@ -50,22 +50,21 @@ class CategoryAdmin(admin.ModelAdmin):
         
 class CartOrderAdmin(admin.ModelAdmin):
     list_display = ('user', 'price', 'paid_status', 'order_date', 'product_status')
-    list_filter = ['paid_status', 'order_date', 'product_status']
-    search_fields = ['user', 'price']
-    list_editable = ['paid_status', 'product_status']
+    list_filter = ['user', 'paid_status', 'order_date', 'product_status']
+    search_fields = ['user', 'paid_status', 'order_date', 'product_status']
     list_per_page = 10
     
     class Meta:
         model = CartOrder
         
+        
 class CartOrderItemsAdmin(admin.ModelAdmin):
-    list_display = ('order', 'invoice_no', 'item', 'image', 'qty', 'Price', 'total')
-    list_filter = ['order', 'invoice_no', 'item', 'Price', 'total']
-    search_fields = ['order', 'invoice_no', 'item', 'Price', 'total']
+    list_display = ('item', 'image', 'product_status', 'qty', 'price', 'product_status')
+    list_filter = ['product_status', 'qty', 'price']
+    search_fields = ['product_status', 'qty', 'price']
     list_per_page = 10
+    model = CartOrderItems
     
-    class Meta:
-        model = CartOrderItems
 
 class WishlistAdmin(admin.ModelAdmin):
     list_display = ('user', 'product', 'date')

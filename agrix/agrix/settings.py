@@ -29,13 +29,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+INTERNAL_IPS = [
+   # ...
+   '127.0.0.1',
+   # ...
+]
 # Application definition
 
 INSTALLED_APPS = [
     'jazzmin',
     'taggit',
     'ckeditor',
+    'debug_toolbar',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -65,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'agrix.urls'

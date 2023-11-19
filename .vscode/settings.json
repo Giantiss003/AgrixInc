@@ -1,12 +1,18 @@
 {
     "cSpell.words": [
         "allauth",
+        "beforesend",
+        "csrfmiddlewaretoken",
         "endfor",
+        "floatformat",
         "jazzmin",
         "shortuuid",
         "signup",
         "socialaccount",
+        "swal",
         "taggit",
+        "totalcartitems",
+        "truncatechars",
         "vsearch"
     ]
 }
