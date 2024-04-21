@@ -13,7 +13,15 @@ urlpatterns = [
     #Search
     path('search/', views.search, name='search'),
     #cart
+    path('cart/', views.cart, name='cart'),
+    # Add to Cart
     path('add-to-cart/', views.add_to_cart, name='add-to-cart'),
+    # Increase cart
+    path('increase-quantity/', views.increase_cart_quantity, name='increase-quantity'),
+    # Decrease cart
+    path('decrease-quantity/', views.decrease_cart_quantity, name='decrease-quantity'),
+    # Delete from cart
+    path('delete-from-cart/', views.delete_from_cart, name='delete-from-cart'),
     # TODO : ROUTE fILTERING
     # path('marketplace/products/filter-product/', views.filter_product, name='filter-product'),
 ]

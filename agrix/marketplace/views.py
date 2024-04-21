@@ -1,6 +1,7 @@
 from django.contrib import messages
 import logging
 import json
+from decimal import Decimal, InvalidOperation
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
@@ -123,44 +124,152 @@ def tag_list(request, tag_slug=None):
 #     return JsonResponse({'data': data})
 
 ######################################CART###########################################
-    
 def add_to_cart(request):
-    cart_product = {}
-    cart_product[str(request.GET.get('id'))] = {
-        'title': request.GET.get('title'),
-        'qty': request.GET.get('qty'),
-        'price': request.GET.get('price'),
-        'pid': request.GET.get('pid'),
-        'image': request.GET.get('image'),
+    cart_product = {
+        str(request.GET.get('id')): {
+            'title': request.GET.get('title'),
+            'qty': request.GET.get('qty'),
+            'price': request.GET.get('price'),
+            'pid': request.GET.get('pid'),
+            'image': request.GET.get('image'),
+        }
     }
     
     if 'cart_data_obj' in request.session:
-        if str(request.GET.get('id')) in request.session['cart_data_obj']:
-            # check if product is already in cart
-            cart_data = request.session['cart_data_obj']
+        cart_data = request.session['cart_data_obj']
+        if str(request.GET.get('id')) in cart_data:
+            # Update quantity if product is already in cart
             cart_data[str(request.GET.get('id'))]['qty'] = cart_product[str(request.GET.get('id'))]['qty']
-            cart_data.update(cart_data)
-            request.session['cart_data_obj'] = cart_data
+            request.session.modified = True  # Flag the session as modified to ensure changes are saved
             return JsonResponse({'status': 'info',
-                                 'message': 'Product Already in cart!',
+                                 'message': 'Product Quantity Added. Item Already in cart!',
                                  'data': request.session['cart_data_obj'],
                                  'totalcartitems': len(request.session['cart_data_obj'])
                                  })
         else:
-            # add product to cart
-            cart_data = request.session['cart_data_obj']
+            # Add product to cart
             cart_data.update(cart_product)
-            request.session['cart_data_obj'] = cart_data
+            request.session.modified = True  # Flag the session as modified to ensure changes are saved
             return JsonResponse({'status': 'success',
                                  'message': 'Product added to cart successfully!',
                                  'data': request.session['cart_data_obj'],
                                  'totalcartitems': len(request.session['cart_data_obj'])
                                  })
     else:
-        # add product to cart
+        # Add product to cart
         request.session['cart_data_obj'] = cart_product
-        return JsonResponse({'status': 'success',
-                             'message': 'Product added to cart successfully!',
-                             'data': request.session['cart_data_obj'],
-                             'totalcartitems': len(request.session['cart_data_obj'])
-                             })        
+        message = 'Product added to cart successfully!'
+    
+    request.session.modified = True  # Flag the session as modified to ensure changes are saved
+    return JsonResponse({
+        'status': 'success',
+        'message': message,
+        'data': request.session['cart_data_obj'],
+        'totalcartitems': len(request.session['cart_data_obj'])
+    })
+
+def cart(request):
+    cart_total_amount = Decimal('0.00')
+    cart_data = request.session.get('cart_data_obj', {})
+
+    for p_id, item in cart_data.items():
+        try:
+            price = Decimal(item.get('price', '0.00'))
+        except InvalidOperation:
+            # Handle the case where the price is not a valid decimal
+            price = Decimal('0.00')
+
+        qty = int(item.get('qty', 0))
+        cart_total_amount += price * qty
+
+    context = {
+        'cart_data': cart_data,
+        'totalcartitems': len(cart_data),
+        'cart_total_amount': cart_total_amount,
+    }
+
+    return render(request, 'marketplace/cart.html', context)
+
+
+def delete_from_cart(request):
+    if request.method == 'POST':
+        product_id = str(request.POST.get('id'))
+
+        cart_data = request.session.get('cart_data_obj', {})
+        if product_id in cart_data:
+            del cart_data[product_id]
+            request.session['cart_data_obj'] = cart_data
+            request.session.modified = True
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Product removed from cart successfully!',
+                'data': request.session['cart_data_obj'],
+                'totalcartitems': len(request.session['cart_data_obj'])
+            })
+        else:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'Product not found in cart!',
+            })
+
+    return JsonResponse({
+        'status': 'error',
+        'message': 'Invalid request method!',
+    })
+
+
+def increase_cart_quantity(request):
+    if request.method == 'POST':
+        product_id = request.POST.get('id')
+        quantity = int(request.POST.get('qty', 1))  # Default to 1 if qty is not provided
+        
+        if 'cart_data_obj' in request.session:
+            cart_data = request.session['cart_data_obj']
+            if product_id in cart_data:
+                cart_data[product_id]['qty'] = int(cart_data[product_id]['qty']) + quantity
+                request.session['cart_data_obj'] = cart_data
+                request.session.modified = True
+                return JsonResponse({
+                    'status': 'success',
+                    'message': 'Quantity increased successfully!',
+                    'data': request.session['cart_data_obj'],
+                    'totalcartitems': len(request.session['cart_data_obj'])
+                })
+        return JsonResponse({
+            'status': 'error',
+            'message': 'Product not found in cart!',
+        })
+def decrease_cart_quantity(request):
+    if request.method == 'POST':
+        product_id = request.POST.get('id')
+        quantity = int(request.POST.get('qty', 1))  # Default to 1 if qty is not provided
+        
+        if 'cart_data_obj' in request.session:
+            cart_data = request.session['cart_data_obj']
+            if product_id in cart_data:
+                if int(cart_data[product_id]['qty']) > quantity:
+                    cart_data[product_id]['qty'] = int(cart_data[product_id]['qty']) - quantity
+                    request.session['cart_data_obj'] = cart_data
+                    request.session.modified = True
+                    return JsonResponse({
+                        'status': 'success',
+                        'message': 'Quantity decreased successfully!',
+                        'data': request.session['cart_data_obj'],
+                        'totalcartitems': len(request.session['cart_data_obj'])
+                    })
+                else:
+                    # If quantity is already 1, remove the item from the cart
+                    del cart_data[product_id]
+                    request.session['cart_data_obj'] = cart_data
+                    request.session.modified = True
+                    return JsonResponse({
+                        'status': 'success',
+                        'message': 'Product removed from cart successfully!',
+                        'data': request.session['cart_data_obj'],
+                        'totalcartitems': len(request.session['cart_data_obj'])
+                    })
+        
+        return JsonResponse({
+            'status': 'error',
+            'message': 'Product not found in cart!',
+        })

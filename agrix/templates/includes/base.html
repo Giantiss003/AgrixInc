@@ -19,8 +19,6 @@
     <link rel="stylesheet" href="{% static 'front-assets/css/main.css' %}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 </head>
 
 <body>
@@ -160,11 +158,11 @@
                                     <a href="#"><span class="lable">Wishlist</span></a>
                                 </div>
                                 <div class="header-action-icon-2">
-                                    <a class="mini-cart-icon" href="#">
+                                    <a class="mini-cart-icon" href="{% url "marketplace:cart" %}">
                                         <img alt="Agrix" src="{% static 'front-assets/imgs/theme/icons/icon-cart.svg' %}" />
                                         <span class="pro-count blue cart-items-count">{{request.session.cart_data_obj|length}}</span>
                                     </a>
-                                    <a href="#"><span class="lable">Cart</span></a>
+                                    <a href="{% url "marketplace:cart" %}"><span class="lable">Cart</span></a>
                                 </div>
                                 <div class="header-action-icon-2">
                                     <a href="#">
@@ -508,6 +506,7 @@
         </div>
     </div>
     <!-- Vendor JS-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{% static 'front-assets/js/vendor/modernizr-3.6.0.min.js' %}"></script>
     <script src="{% static 'front-assets/js/vendor/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'front-assets/js/vendor/jquery-migrate-3.3.0.min.js' %}"></script>
