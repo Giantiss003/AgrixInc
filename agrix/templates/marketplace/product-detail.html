@@ -72,7 +72,7 @@
                                                     <input type="hidden" value="{{product.title}}" class="product-title-{{product.id}}">
                                                     <input type="number" value="1" name="" id="product-quantity" class="product-quantity-{{product.id}}">
                                                     <br>
-                                                    <button type="submit" class="button button-add-to-cart add-to-cart-btn" id="add-to-cart-btn" data-url="{% url 'marketplace:add-to-cart'%}"><i class="fi-rs-shopping-cart"></i>Add to cart</button>
+                                                    <button type="submit" class="button button-add-to-cart add-to-cart-btn" id="add-to-cart-btn" data-url="{% url 'marketplace:add-to-cart'%}" data-index="{{product.id}}"><i class="fi-rs-shopping-cart"></i>Add to cart</button>
                                                     <a aria-label="Add To Wishlist" class="action-btn hover-up" href=""><i class="fi-rs-heart"></i></a>
                                                 </div>
                                             </div>

@@ -163,9 +163,4 @@ def add_to_cart(request):
                              'message': 'Product added to cart successfully!',
                              'data': request.session['cart_data_obj'],
                              'totalcartitems': len(request.session['cart_data_obj'])
-                             })    
-    return JsonResponse({'status': 'success',
-                         'message': 'Product added to cart successfully!',
-                         'data': request.session['cart_data_obj'],
-                         'totalcartitems': len(request.session['cart_data_obj'])
-                         })          
+                             })        
